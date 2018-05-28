@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis">
+	<insert id="test1">
+		insert into student values(seq_student.nextval
+									, '김회진'
+									, '01012341234'
+									, 'kimhoi@naver.com'
+									, '서울시 강서구'
+									, default)
+	</insert>
+	<insert id="test2" parameterType="string"> <!-- 원칙적으로 풀 패키지명을 써야한다. java.lang.string인데 별칭을 쓸 수 있는 패키지도 있음.-->
+		insert into student values(seq_student.nextval
+									, #{name} <!-- 데이터 값에 해당하는 값은 #을 쓴다. el과 헷갈리지 말것! 이 값은 request에 담겨서 가야하나? -->
+									, '01012341234'
+									, 'kimhoi@naver.com'
+									, '서울시 강서구'
+									, default)
+	</insert>
+	
+	<!-- insert태그에 useGeneratedKeys="true"의 속성만 넣어주면 값이 db의 컬럼명하고 맞춰준다! -->
+	<insert id="studentEnrollEnd" parameterType="student"> 
+		insert into student values(seq_student.nextval
+									, #{studentName}
+									, #{studentTel}
+									, #{studentEmail}
+									, #{studentAddr}
+									, default)
+	</insert>
+	<insert id="studentMapEnrollEnd" parameterType="map"> 
+		insert into student values(seq_student.nextval
+									, #{studentName}
+									, #{studentTel}
+									, #{studentEmail}
+									, #{studentAddr}
+									, default)
+	</insert>
+	<insert id="studentMap2EnrollEnd" parameterType="hashmap">
+		insert into student values(seq_student.nextval
+									, #{student.studentName}
+									, #{student.studentTel}
+									, #{student.studentEmail}
+									, #{student.studentAddr}
+									, default)
+	</insert>
+	<select id="selectStudentCount" resultType="_int">
+		select count(*) from student
+	</select>
+	<select id="selectStudentName" parameterType="_int" resultType="string">
+		select studentName from student where studentNo = #{studentNo}
+	</select>
+	<delete id="deleteStudentOne" parameterType="_int">
+		delete from student where studentNo=#{studentNo}
+	</delete>
+	
+</mapper>

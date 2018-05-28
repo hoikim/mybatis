@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org/DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.kh.mybatis.model.vo.Student" alias="student"/> <!-- 매핑.xml에서 parameterType의 별칭을 정해주는 것 -->
+	</typeAliases>
+   <environments default="development">
+      <environment id="development">
+         <transactionManager type="JDBC"/>
+         <dataSource type="POOLED">
+            <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+            <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+            <property name="username" value="mybatis"/>
+            <property name="password" value="mybatis"/>
+         </dataSource>
+      </environment>
+   </environments>
+   <mappers>
+      <!-- db에 전송할 쿼리문을 담은 mapper 파일들을 등록 -->
+      <mapper resource="/mappers/mybatis/mybatis-mapper.xml"/>
+   </mappers>
+
+</configuration>
